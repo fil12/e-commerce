@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Product;
 
 use App\Entity\Parameters;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Parameters[]    findAll()
  * @method Parameters[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ParametersRepository extends ServiceEntityRepository
+class ParametersRepository extends ServiceEntityRepository implements ParametersRepositoryInterface
 {
     public function __construct(RegistryInterface $registry)
     {

@@ -14,8 +14,12 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category", name="categories")
      */
-    public function index()
+    public function index(
+        CategoryServiceInterface $categoryService,
+        ProductServiceInterface $productService
+    )
     {
+
         return $this->render('category/index.html.twig', [
             'controller_name' => 'CategoryController',
         ]);
@@ -32,16 +36,27 @@ class CategoryController extends AbstractController
         )
     {
         try {
+            $categories = $categoryService->getAllMainCategories();
+        } catch (NotFoundEntityException $e) {
+            throw $this->createNotFoundException($e->getMessage());
+        }
+
+        try {
             $category = $categoryService->getCategoryBySlug($slug);
         } catch (NotFoundEntityException $e) {
             throw $this->createNotFoundException($e->getMessage());
         }
 
-        $products = $productService->getCategoryProducts($category);
+        try {
+            $products = $productService->getCategoryProducts($category);
+        } catch (NotFoundEntityException $e) {
+            throw $this->createNotFoundException($e->getMessage());
+        }
 
-        dd($products);
         return $this->render('category/view.html.twig', [
-            'category' => $category
+            'categories' => $categories,
+            'category' => $category,
+            'products' => $products
         ]);
     }
 }

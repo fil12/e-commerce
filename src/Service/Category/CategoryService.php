@@ -45,4 +45,13 @@ class CategoryService implements CategoryServiceInterface
     {
         return $this->categoryRepository->findAllIsPublished();
     }
+
+
+    public function getAllMainCategories() {
+        if (!$categories = $this->categoryRepository->findAllMainIsPublished()){
+            throw new NotFoundEntityException(\sprintf('Categories are not found'));
+        }
+        return $categories;
+    }
+
 }

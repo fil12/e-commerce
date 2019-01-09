@@ -16,4 +16,7 @@ interface CategoryServiceInterface
 
     public function getAllCategories();
 
+    public function getAllMainCategories();
+
+
 }

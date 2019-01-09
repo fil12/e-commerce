@@ -19,6 +19,14 @@ class CategoryRepository extends ServiceEntityRepository implements CategoryRepo
         parent::__construct($registry, Category::class);
     }
 
+    public function findAllMainIsPublished()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.is_published = true')
+            ->andWhere('c.parent is null')
+            ->getQuery()
+            ->getResult();
+    }
     public function findAllIsPublished()
     {
         return $this->createQueryBuilder('c')
@@ -26,7 +34,6 @@ class CategoryRepository extends ServiceEntityRepository implements CategoryRepo
             ->getQuery()
             ->getResult();
     }
-
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */

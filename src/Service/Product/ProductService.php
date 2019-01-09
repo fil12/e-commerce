@@ -10,6 +10,7 @@ namespace App\Service\Product;
 
 
 use App\Entity\Category;
+use App\Exception\NotFoundEntityException;
 use App\Repository\Category\CategoryRepositoryInterface;
 use App\Repository\Product\ProductRepositoryInterface;
 use phpDocumentor\Reflection\Types\Integer;
@@ -42,12 +43,17 @@ class ProductService implements ProductServiceInterface
 
     public function getCategoryProducts(Category $category)
     {
-        $products = $category->getProducts();
+        if (!$products = $category->getProducts()){
+            throw new NotFoundEntityException(\sprintf('In category with slug "%s" products not found', $category->getSlug()));
+        }
+
         return $products;
     }
 
     public function getProductById(int $id)
     {
+
+
         return $this->productRepository->find($id);
     }
 }

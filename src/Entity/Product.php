@@ -59,8 +59,10 @@ class Product
      */
     private $categories;
 
+
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductImages", mappedBy="product_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductImages", mappedBy="product", orphanRemoval=true)
      */
     private $productImages;
 
@@ -176,7 +178,13 @@ class Product
 
         return $this;
     }
-
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
     public function addCategory(Category $category)
     {
         $this->categories[] = $category;
@@ -194,7 +202,7 @@ class Product
     {
         if (!$this->productImages->contains($productImage)) {
             $this->productImages[] = $productImage;
-            $productImage->setProductId($this);
+            $productImage->setProduct($this);
         }
 
         return $this;
@@ -205,8 +213,8 @@ class Product
         if ($this->productImages->contains($productImage)) {
             $this->productImages->removeElement($productImage);
             // set the owning side to null (unless already changed)
-            if ($productImage->getProductId() === $this) {
-                $productImage->setProductId(null);
+            if ($productImage->getProduct() === $this) {
+                $productImage->setProduct(null);
             }
         }
 

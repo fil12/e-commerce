@@ -44,7 +44,7 @@ class ProductImages
 
     public function getName(): ?string
     {
-        return $this->name;
+        return $this->name ?? 'default.jpg';
     }
 
     public function setName(string $name): self

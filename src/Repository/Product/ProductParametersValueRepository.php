@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Product;
 
-use App\Entity\ProductImages;
+use App\Entity\ProductParametersValue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method ProductImages|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProductImages|null findOneBy(array $criteria, array $orderBy = null)
- * @method ProductImages[]    findAll()
- * @method ProductImages[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ProductParametersValue|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ProductParametersValue|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ProductParametersValue[]    findAll()
+ * @method ProductParametersValue[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProductImagesRepository extends ServiceEntityRepository
+class ProductParametersValueRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, ProductImages::class);
+        parent::__construct($registry, ProductParametersValue::class);
     }
 
     // /**
-    //  * @return ProductImages[] Returns an array of ProductImages objects
+    //  * @return ProductParametersValue[] Returns an array of ProductParametersValue objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ProductImagesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ProductImages
+    public function findOneBySomeField($value): ?ProductParametersValue
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

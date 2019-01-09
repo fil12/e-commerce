@@ -165,7 +165,7 @@ class Category
     {
         if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
-            $category->setParentId($this);
+            $category->setParent($this);
         }
 
         return $this;
@@ -176,8 +176,8 @@ class Category
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
             // set the owning side to null (unless already changed)
-            if ($category->getParentId() === $this) {
-                $category->setParentId(null);
+            if ($category->getParent() === $this) {
+                $category->setParent(null);
             }
         }
 

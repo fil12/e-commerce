@@ -34,9 +34,14 @@ class Parameters
     private $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductParametersValue", mappedBy="parameter_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductParametersValue", mappedBy="parameter")
      */
     private $productParametersValues;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -111,6 +116,18 @@ class Parameters
                 $productParametersValue->setParameterId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
