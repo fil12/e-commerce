@@ -52,8 +52,22 @@ class ProductService implements ProductServiceInterface
 
     public function getProductById(int $id)
     {
-
-
         return $this->productRepository->find($id);
+    }
+
+    public function getProductsByFilters(array $options)
+    {
+        $ids = [];
+        foreach ($options as $id=>$optionValues ){
+            $ids[] = $id;
+        }
+        $products = $this->productRepository->findProductsWithFilters($ids);
+
+        return $products;
+    }
+
+    public function getAllNewProducts()
+    {
+        return $this->productRepository->findAllIsNew();
     }
 }

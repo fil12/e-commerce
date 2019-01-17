@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello {{ controller_name }}!{% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
 {% block body %}
 
 
@@ -11,24 +13,11 @@
 
             <!-- Three columns of text below the carousel -->
 
-            <div class="row col-lg-10">
-                {% for product in products %}
-                    <div class="col-lg-4">
-                        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
-                            <title>Placeholder</title>
-                            <rect fill="#777" width="100%" height="100%"/>
-                            <text fill="#777" dy=".3em" x="50%" y="50%">140x140</text>
-                            <image xlink:href="{{ asset('images/') }}{{ product.productImages()[0].name }}.png" x="0" y="0"  width="100%" />
+            <div class="row col-lg-10 wrap">
 
-
-                        </svg>
-
-                        <h2>{{ product.title }}</h2>
-                        <p>{{ product.description }}</p>
-                        <p><a class="btn btn-secondary" href="/category/{{ product.getCategories()[0].slug }}/{{ product.id }}" role="button">View details &raquo;</a></p>
-                    </div><!-- /.col-lg-4 -->
-
-                {% endfor %}
+                    {% for product in products %}
+                        {% include 'layouts/product.html.twig'%}
+                    {% endfor %}
 
 
                 {#<!-- START THE FEATURETTES -->#}
@@ -74,5 +63,10 @@
                 {#<!-- /END THE FEATURETTES -->#}
 
         </div><!-- /.row -->
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
 
 {% endblock %}

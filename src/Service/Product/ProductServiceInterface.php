@@ -19,4 +19,7 @@ interface ProductServiceInterface
 
     public function getProductById(int $id);
 
+    public function getProductsByFilters(array $options);
+
+    public function getAllNewProducts();
 }

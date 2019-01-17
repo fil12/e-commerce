@@ -12,6 +12,4 @@ namespace App\Service\Product;
 interface ParametersServiceInterface
 {
     public function getAllProductsParameters();
-
-
 }

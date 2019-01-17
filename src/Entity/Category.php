@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Category\CategoryRepository")
  */
 class Category
 {
@@ -35,17 +37,19 @@ class Category
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
 
     /**
      * Many Categories have Many products.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="categories", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="categories",)
      * @ORM\JoinTable(name="categories_products")
      */
     private $products;

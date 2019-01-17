@@ -19,6 +19,20 @@ class ProductParametersValueRepository extends ServiceEntityRepository
         parent::__construct($registry, ProductParametersValue::class);
     }
 
+    public function getProductsByParamId(int $id)
+    {
+        $productParamValue = $this->createQueryBuilder('ppv')
+            ->select('ppv','pr')
+            ->join('ppv.product', 'pr')
+            ->andWhere('ppv.parameter = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult();
+
+        return $productParamValue;
+    }
+
+
     // /**
     //  * @return ProductParametersValue[] Returns an array of ProductParametersValue objects
     //  */

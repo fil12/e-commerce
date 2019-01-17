@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}Create customer{% endblock %}
+
+{% block main %}
+    <main role="main">
+        <div class="col-lg-6 wrap offset-3">
+            <h2 class="text-primary">Please enter your data.</h2>
+
+            {{ form_start(form) }}
+            <div class="form-group">
+                <label for="name">Your name</label>
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                <label for="message">Your lastName</label>
+                {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'cols': 30, 'rows': 5}}) }}
+            </div>
+            <div class="form-group">
+                <label for="email">Your e-mail</label>
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                <label for="message">Your phone</label>
+                {{ form_widget(form.phone, {'attr': {'class': 'form-control', 'type': 'phone'}}) }}
+            </div>
+            <div class="form-group">
+                <label for="message">Your City</label>
+                {{ form_widget(form.city, {'attr': {'class': 'form-control', 'type': 'phone'}}) }}
+            </div>
+            <div class="form-group">
+                <label for="message">Your adress</label>
+                {{ form_widget(form.adress, {'attr': {'class': 'form-control', 'type': 'phone'}}) }}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+    </main>
+{% endblock %}

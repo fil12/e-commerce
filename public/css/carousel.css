@@ -4,11 +4,28 @@
 
 body {
     padding-top: 3rem;
-    padding-bottom: 3rem;
+    /*padding-bottom: 3rem;*/
     color: #5a5a5a;
 }
 
+main {
+    margin-top: 5vh;
+    height: max-content;
+    min-height:65vh;
+}
 
+.wrap {
+    padding: 0vh 4vw;
+}
+
+.cart {
+
+
+}
+
+footer {
+    width: 101%;
+}
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 

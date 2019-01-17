@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cart{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!--  cart.css  -->
+    <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+{% endblock %}
+{% block main %}
+
+    <main role="main">
+        {#{% if app.session.get('cart') | length > 1 %}#}
+        {#{{ app.session.get('cart').quantity }}#}
+        {#{% endif %}#}
+        <div class="row cart">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 d-flex">
+                <div class="col-lg-8 cartProducts">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Sku</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">price</th>
+                            <th scope="col">total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for key, cartItems in cart %}
+                            {% if key != 'quantity' %}
+                                <tr>
+                                    <td>{{ cartItems.product.id }}</td>
+                                    <td>{{ cartItems.product.title }}</td>
+                                    <td>{{ cartItems.product.sku }}</td>
+                                    <td>
+                                    <span class="cart-add" data-id="{{ cartItems.product.id }}"
+                                          data-price="{{ cartItems.product.price }}"><i class="far fa-plus-square"></i></span>
+                                        <span class="count-{{ cartItems.product.id }}">{{ cartItems.qty }}</span>
+                                        <span class="cart-delete" data-id="{{ cartItems.product.id }}"
+                                              data-price="{{ cartItems.product.price }}"><i
+                                                    class="far fa-minus-square"></i></span>
+                                    </td>
+                                    <td>{{ cartItems.product.price }}</td>
+                                    <td>
+                                        <span class="total-{{ cartItems.product.id }}">{{ cartItems.product.price * cartItems.qty }}</span>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-sm btn-warning cart-clean"> Delete all products</button>
+                </div>
+                <div class="col-lg-2 offset-2 cart-total">
+                    <p class="totalQty">
+                        Total Quantity:
+                        <span class="counter-total">
+                            {% if app.session.get('cart') | length > 1 %}
+                        {{ app.session.get('cart').quantity }}
+                        {% else %}
+                            0
+                        {% endif %}
+                            </span>
+                    </p>
+                    <p class="totalPrice">
+                        <span>Total Price:</span>
+
+                    </p>
+                    <a href="{{ path('createCustomer') }}" type="button" class="btn btn-lg btn-success"> To order</a>
+                </div>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    </main>
+{% endblock %}

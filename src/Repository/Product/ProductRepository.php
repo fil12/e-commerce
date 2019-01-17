@@ -26,51 +26,63 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.is_published = true')
+            ->setMaxResults(20)
             ->getQuery()
             ->getResult()
             ;
     }
 
     /**
-    * @return Product[] Returns an array of Product objects is published and is new
+    * @return Product[] Returns an array of Product objects is published and created_at > than week ago
     */
     public function findAllIsNew()
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.is_new = true')
+            ->andWhere('p.created_at >= (CURRENT_DATE() - 7)')
             ->andWhere('p.is_published = true')
             ->getQuery()
             ->getResult()
             ;
     }
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Product[] Returns an array of Product objects is published and created_at > than week ago
+     */
+    public function findAllIsRecommended()
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('p.is_recommended = true')
+            ->andWhere('p.is_published = true')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Product
+    public function findProductsWithFilters($params)
     {
+        $count = count($params);
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('p')
+            ->leftJoin('p.productParametersValues', 'ppv')
+            ->andWhere('ppv.parameter in (:values)')
+            ->groupBy('p')
+            ->andHaving('count(ppv) >= :count')
+            ->setParameter('values',  $params, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY )
+            ->setParameter('count',  $count)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
     }
-    */
 
+    public function searchProducts(string $search_str)
+    {
+
+        return $this->createQueryBuilder('p')
+            ->where("p.title like :search_str")
+            ->orderBy('p.id', 'ASC')
+            ->setParameters([':search_str' => '%'.$search_str.'%'])
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

@@ -15,4 +15,8 @@ interface ProductRepositoryInterface
 
     public function findAllIsNew();
 
+    public function findProductsWithFilters($params);
+
+    public function searchProducts(string $search_str);
+
 }

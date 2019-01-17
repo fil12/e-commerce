@@ -19,6 +19,17 @@ class ParametersRepository extends ServiceEntityRepository implements Parameters
         parent::__construct($registry, Parameters::class);
     }
 
+    public function findMainParams()
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.parent is null')
+            ->orderBy('p.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
     // /**
     //  * @return Parameters[] Returns an array of Parameters objects
     //  */

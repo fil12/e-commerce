@@ -23,7 +23,7 @@ class ParametersService implements ParametersServiceInterface
 
     public function getAllProductsParameters()
     {
-        if (!$allParameters = $this->parametersRepository->findAll()){
+        if (!$allParameters = $this->parametersRepository->findMainParams()){
             throw new NotFoundEntityException('Parameters not found');
         }
 

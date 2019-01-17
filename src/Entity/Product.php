@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Product\ProductRepository")
  */
 class Product
 {
@@ -41,21 +43,24 @@ class Product
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $is_new;
+    private $is_recommended;
+
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
 
     /**
      * Many Products have Many categories.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="products", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="products")
      */
     private $categories;
 
@@ -143,17 +148,16 @@ class Product
         return $this;
     }
 
-    public function getIsNew(): ?bool
+    public function getisRecommended()
     {
-        return $this->is_new;
+        return $this->is_recommended;
     }
 
-    public function setIsNew(bool $is_new): self
+    public function setIsRecommended($is_recommended): void
     {
-        $this->is_new = $is_new;
-
-        return $this;
+        $this->is_recommended = $is_recommended;
     }
+
 
     public function getCreatedAt(): ?\DateTimeInterface
     {

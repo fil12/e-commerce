@@ -11,5 +11,5 @@ namespace App\Repository\Product;
 
 interface ParametersRepositoryInterface
 {
-
+    public function findMainParams();
 }
