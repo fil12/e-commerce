@@ -45,7 +45,11 @@
 {% block header %}
     {% include 'layouts/header.html.twig' %}
 {% endblock %}
-
+{% for message in app.session.flashBag('notice') %}
+    <div class="alert alert-notice">
+        {{ message }}
+    </div>
+{% endfor %}
 {% block main %}
 <main role="main">
 

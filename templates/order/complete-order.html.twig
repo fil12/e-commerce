@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}Create customer{% endblock %}
+
+{% block main %}
+    <main role="main">
+        <div class="col-lg-6 wrap offset-3 text-center">
+           <h3 class="bg-success">Your order is accepted</h3>
+
+            <a href="{{ path('main') }}" class="btn btn-lg btn-primary">Back to Main page</a>
+        </div>
+
+    </main>
+{% endblock %}

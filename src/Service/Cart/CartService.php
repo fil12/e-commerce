@@ -10,6 +10,7 @@ namespace App\Service\Cart;
 
 
 use App\Entity\Product;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -22,27 +23,28 @@ class CartService implements CartServiceInterface
 
     private $requestStack;
 
-    public function __construct(SessionInterface $session, RequestStack $requestStack)
+    private $em;
+
+    public function __construct(SessionInterface $session, RequestStack $requestStack, EntityManagerInterface $em)
     {
         $this->session = $session;
         $this->requestStack = $requestStack;
+        $this->em = $em;
     }
 
     public function addToCart(Product $product)
     {
         $request = $this->requestStack->getCurrentRequest();
         $session = $request->getSession();
-        $cart = $session->get('cart', []);
+        $cart = $session->get('cart', 'products');
 
-        if (isset($cart[$product->getId()])) {
-
+        if (isset($cart['products'][$product->getId()])) {
             $cart['quantity']++;
-            $cart[$product->getId()]['qty']++;
-
+            $cart['products'][$product->getId()]['qty']++;
         } else {
             $cart = $session->get('cart', array());
-            $cart[$product->getId()]['product'] = $product;
-            $cart[$product->getId()]['qty'] = isset($cart[$product->getId()]['qty']) ? $cart[$product->getId()]['qty'] + 1 : 1;
+            $cart['products'][$product->getId()]['id']=$product;
+            $cart['products'][$product->getId()]['qty'] = isset($cart['products'][$product->getId()]['qty']) ? $cart['products'][$product->getId()]['qty'] + 1 : 1;
             $cart['quantity'] = isset($cart['quantity']) ? $cart['quantity'] + 1 : 1;
         }
 
@@ -67,18 +69,16 @@ class CartService implements CartServiceInterface
         $session = $request->getSession();
         $cart = $session->get('cart', []);
 
-        if (isset($cart[$product->getId()])) {
+        if (isset($cart['products'][$product->getId()])) {
 
-            if ($cart[$product->getId()]['qty'] > 1) {
+            if ($cart['products'][$product->getId()]['qty'] > 1) {
                 $cart['quantity']--;
-                $cart[$product->getId()]['qty']--;
+                $cart['products'][$product->getId()]['qty']--;
 
-            } else if ($cart['quantity'] === 1 && count($cart) === 2) {
-                $session->clear();
-                dd($cart);
-
+            } else if ($cart['quantity'] === 1 && count($cart['products']) === 1) {
+                $session->remove('cart');
             } else {
-                unset($cart[$product->getId()]);
+                unset($cart['products'][$product->getId()]);
             }
         }
 
@@ -91,7 +91,7 @@ class CartService implements CartServiceInterface
     {
         $request = $this->requestStack->getCurrentRequest();
         $session = $request->getSession();
-        $session->clear();
+        $session->remove('cart');
 
         return true;
     }

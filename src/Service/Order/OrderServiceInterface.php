@@ -10,12 +10,12 @@ namespace App\Service\Order;
 
 
 use App\Entity\Customer;
-use App\Entity\Order;
+use App\Entity\Orders;
 
 interface OrderServiceInterface
 {
     public function createCustomer(Customer $customer);
 
-    public function createOrder(Order $order);
+    public function createOrder(Orders $order);
 
 }

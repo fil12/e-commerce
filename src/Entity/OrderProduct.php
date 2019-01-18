@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderProductRepository")
@@ -22,7 +24,7 @@ class OrderProduct
     private $qty;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="orderProducts")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Orders", inversedBy="orderProducts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $order;
@@ -35,11 +37,13 @@ class OrderProduct
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
 
@@ -60,12 +64,12 @@ class OrderProduct
         return $this;
     }
 
-    public function getOrder(): ?Order
+    public function getOrder(): ?Orders
     {
         return $this->order;
     }
 
-    public function setOrder(?Order $order): self
+    public function setOrder(?Orders $order): self
     {
         $this->order = $order;
 

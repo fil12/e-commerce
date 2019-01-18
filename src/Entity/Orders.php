@@ -5,11 +5,15 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
+ * ORM\Table(name="shop_order")
  */
-class Order
+
+class Orders
 {
     /**
      * @ORM\Id()
@@ -35,19 +39,21 @@ class Order
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $customer_id;
+    private $customer;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\OrderProduct", mappedBy="order_id", orphanRemoval=true)
@@ -124,14 +130,14 @@ class Order
         return $this;
     }
 
-    public function getCustomerId(): ?Customer
+    public function getCustomer(): ?Customer
     {
-        return $this->customer_id;
+        return $this->customer;
     }
 
-    public function setCustomerId(?Customer $customer_id): self
+    public function setCustomer(?Customer $customer): self
     {
-        $this->customer_id = $customer_id;
+        $this->customer = $customer;
 
         return $this;
     }
@@ -148,7 +154,7 @@ class Order
     {
         if (!$this->orderProducts->contains($orderProduct)) {
             $this->orderProducts[] = $orderProduct;
-            $orderProduct->setOrderId($this);
+            $orderProduct->setOrder($this);
         }
 
         return $this;
@@ -159,8 +165,8 @@ class Order
         if ($this->orderProducts->contains($orderProduct)) {
             $this->orderProducts->removeElement($orderProduct);
             // set the owning side to null (unless already changed)
-            if ($orderProduct->getOrderId() === $this) {
-                $orderProduct->setOrderId(null);
+            if ($orderProduct->getOrder() === $this) {
+                $orderProduct->setOrder(null);
             }
         }
 

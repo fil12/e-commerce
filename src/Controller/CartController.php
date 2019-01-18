@@ -18,8 +18,16 @@ class CartController extends AbstractController
     public function index(CartServiceInterface $cartService)
     {
         $cart = $cartService->getCart();
-//        dd($cart);
 
+//        foreach ($cart as $k=>$cartItems){
+//            if($k !== 'quantity'){
+//                foreach($cartItems as $item){
+//                    dump($item['id']);
+//
+//                }
+//            }
+//        }
+//        die();
         return $this->render('cart/index.html.twig', [
             'cart' => $cart
         ]);
@@ -46,6 +54,8 @@ class CartController extends AbstractController
     public function xhrDeleteProdcutFromCart(Product $product, CartServiceInterface $cartService)
     {
         $cart = $cartService->deleteProductFromCart($product);
+        dd($cart);
+
         $response = [
             'id' => $product->getId(),
             'title' => $product->getTitle(),

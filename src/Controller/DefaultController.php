@@ -14,7 +14,7 @@ use Cocur\Slugify\Slugify;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="default")
+     * @Route("/", name="main")
      */
     public function index(
         ProductServiceInterface $productService,

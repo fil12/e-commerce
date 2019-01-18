@@ -63,7 +63,7 @@ class Customer
     private $update_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="customer_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="customer")
      */
     private $orders;
 

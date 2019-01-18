@@ -6,6 +6,7 @@ use App\Form\CustomerType;
 use App\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Order\OrderServiceInterface;
 
@@ -24,17 +25,18 @@ class OrderController extends AbstractController
     /**
      * @Route("/create-customer", name="createCustomer")
      */
-    public function createCustomer(OrderServiceInterface $orderService, Request $request)
+    public function createCustomer(OrderServiceInterface $orderService, Request $request, SessionInterface $session)
     {
         $formCustomer = $this->createForm(CustomerType::class);
         $formCustomer->handleRequest($request);
 
 
         if ($formCustomer->isSubmitted() && $formCustomer->isValid()) {
-            $customerId = $orderService->createCustomer($formCustomer->getData());
             $this->addFlash('success', 'Your data was successfully saved!');
+            $customer = $orderService->createCustomer($formCustomer->getData());
+            $session->set('customer',$customer);
 
-            return $this->redirectToRoute('order', ['customerID' => $customerId]);
+            return $this->redirectToRoute('createOrder');
         }
 
         return $this->render('order/create-customer.html.twig', [
@@ -51,16 +53,22 @@ class OrderController extends AbstractController
         $formOrder->handleRequest($request);
 
         if ($formOrder->isSubmitted() && $formOrder->isValid()) {
-            dd($formOrder->getData());
-
-            $order = $orderService->createCustomer($formOrder->getData());
+            $order = $orderService->createOrder($formOrder->getData());
             $this->addFlash('success', 'Your order was successfully saved!');
 
-//            return $this->redirectToRoute('order', ['customerID' => $customerId]);
+            return $this->redirectToRoute('completeOrder', ['$order' => $order]);
         }
 
         return $this->render('order/create-order.html.twig', [
             'form' => $formOrder->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/complete-order", name="completeOrder")
+     */
+    public function orderComplete(OrderServiceInterface $orderService, Request $request){
+        return $this->render('order/complete-order.html.twig', [
         ]);
     }
 }

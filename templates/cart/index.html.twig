@@ -30,23 +30,25 @@
                         <tbody>
                         {% for key, cartItems in cart %}
                             {% if key != 'quantity' %}
+                                {% for item in cartItems %}
                                 <tr>
-                                    <td>{{ cartItems.product.id }}</td>
-                                    <td>{{ cartItems.product.title }}</td>
-                                    <td>{{ cartItems.product.sku }}</td>
+                                    <td>{{ item.id.id}}</td>
+                                    <td>{{ item.id.title }}</td>
+                                    <td>{{ item.id.sku }}</td>
                                     <td>
-                                    <span class="cart-add" data-id="{{ cartItems.product.id }}"
-                                          data-price="{{ cartItems.product.price }}"><i class="far fa-plus-square"></i></span>
-                                        <span class="count-{{ cartItems.product.id }}">{{ cartItems.qty }}</span>
-                                        <span class="cart-delete" data-id="{{ cartItems.product.id }}"
-                                              data-price="{{ cartItems.product.price }}"><i
+                                    <span class="cart-add" data-id="{{ item.id.id }}"
+                                          data-price="{{ item.id.price }}"><i class="far fa-plus-square"></i></span>
+                                        <span class="count-{{ item.id.id }}">{{ item.qty }}</span>
+                                        <span class="cart-delete" data-id="{{ item.id.id }}"
+                                              data-price="{{ item.id.price }}"><i
                                                     class="far fa-minus-square"></i></span>
                                     </td>
-                                    <td>{{ cartItems.product.price }}</td>
+                                    <td>{{ item.id.price }}</td>
                                     <td>
-                                        <span class="total-{{ cartItems.product.id }}">{{ cartItems.product.price * cartItems.qty }}</span>
+                                        <span class="total-{{ item.id.id }}">{{ item.id.price * item.qty }}</span>
                                     </td>
                                 </tr>
+                                {% endfor %}
                             {% endif %}
                         {% endfor %}
                         </tbody>
