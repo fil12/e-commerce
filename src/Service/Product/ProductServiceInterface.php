@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: dev-alexf
  * Date: 05.01.19
- * Time: 12:51
+ * Time: 12:51.
  */
 
 namespace App\Service\Product;
-
 
 use App\Entity\Category;
 

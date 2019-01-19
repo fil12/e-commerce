@@ -3,12 +3,11 @@
  * Created by PhpStorm.
  * User: dev-alexf
  * Date: 17.01.19
- * Time: 9:26
+ * Time: 9:26.
  */
 
 namespace App\DataFixtures;
 
-use App\Repository\Category\CategoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Category;
@@ -49,7 +48,5 @@ class CategoryFixtures extends Fixture
 //        $manager->flush();
 //
 //        $this->addReference(self::CATEGORY, $category);
-
-
     }
 }

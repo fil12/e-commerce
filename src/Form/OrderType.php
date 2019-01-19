@@ -14,10 +14,10 @@ class OrderType extends AbstractType
     {
         $builder
             ->add('shipping_method', ChoiceType::class, [
-                'choices'  => [
+                'choices' => [
                     'New Post' => 'np',
-                    'Pickup' => 'pickup'
-                ]])
+                    'Pickup' => 'pickup',
+                ], ])
             ->add('comment')
         ;
     }

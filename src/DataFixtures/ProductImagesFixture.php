@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: dev-alexf
  * Date: 17.01.19
- * Time: 13:17
+ * Time: 13:17.
  */
 
 namespace App\DataFixtures;
@@ -13,10 +13,8 @@ use App\Entity\ProductImages;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-
 class ProductImagesFixture extends Fixture
 {
-
     /**
      * {@inheritdoc}
      */
@@ -27,7 +25,7 @@ class ProductImagesFixture extends Fixture
         $products = $manager->getRepository(Product::class)->findAll();
 
         foreach ($products as $product) {
-            for ($i = 0; $i < 2; $i++) {
+            for ($i = 0; $i < 2; ++$i) {
                 $productImage = new ProductImages();
                 $productImage
                     ->setProduct($product)

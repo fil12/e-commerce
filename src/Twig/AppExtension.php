@@ -19,7 +19,7 @@ final class AppExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('imagePath', [$this, 'imagePathFilter'])
+            new TwigFilter('imagePath', [$this, 'imagePathFilter']),
         ];
     }
 
@@ -27,5 +27,4 @@ final class AppExtension extends AbstractExtension
     {
         return $path === $this->defaultImageName ? \sprintf('%s/%s', $this->imagesRoot, $path) : $path;
     }
-
 }

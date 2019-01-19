@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: dev-alexf
  * Date: 16.01.19
- * Time: 22:39
+ * Time: 22:39.
  */
 
 namespace App\DataFixtures;
@@ -12,7 +12,6 @@ use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-
 
 class ProductFixtures extends Fixture
 {

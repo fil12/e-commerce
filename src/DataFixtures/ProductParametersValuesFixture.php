@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: dev-alexf
  * Date: 17.01.19
- * Time: 12:47
+ * Time: 12:47.
  */
 
 namespace App\DataFixtures;
@@ -21,7 +21,6 @@ class ProductParametersValuesFixture extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-
 //        $products = $manager->getRepository(Product::class)->findAll();
 //        $parameterRepo = $manager->getRepository(Parameters::class);
 //

@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Product\ProductRepository")
  */
@@ -45,7 +44,6 @@ class Product
      */
     private $is_recommended;
 
-
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
@@ -60,11 +58,10 @@ class Product
 
     /**
      * Many Products have Many categories.
+     *
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="products")
      */
     private $categories;
-
-
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProductImages", mappedBy="product", orphanRemoval=true)
@@ -92,7 +89,6 @@ class Product
         $this->productImages = new ArrayCollection();
         $this->productParametersValues = new ArrayCollection();
         $this->orderProducts = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -158,7 +154,6 @@ class Product
         $this->is_recommended = $is_recommended;
     }
 
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
@@ -182,6 +177,7 @@ class Product
 
         return $this;
     }
+
     /**
      * @return Collection|Category[]
      */
@@ -189,6 +185,7 @@ class Product
     {
         return $this->categories;
     }
+
     public function addCategory(Category $category)
     {
         $this->categories[] = $category;

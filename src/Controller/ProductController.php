@@ -13,7 +13,6 @@ class ProductController extends AbstractController
      */
     public function view($id, ProductServiceInterface $productService)
     {
-
         return $this->render('product/index.html.twig', [
             'product' => $productService->getProductById($id),
         ]);

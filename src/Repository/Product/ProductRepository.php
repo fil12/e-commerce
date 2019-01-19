@@ -20,8 +20,8 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
     }
 
     /**
-    * @return Product[] Returns an array of Product objects is published
-    */
+     * @return Product[] Returns an array of Product objects is published
+     */
     public function findAllIsPublished()
     {
         return $this->createQueryBuilder('p')
@@ -33,8 +33,8 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
     }
 
     /**
-    * @return Product[] Returns an array of Product objects is published and created_at > than week ago
-    */
+     * @return Product[] Returns an array of Product objects is published and created_at > than week ago
+     */
     public function findAllIsNew()
     {
         return $this->createQueryBuilder('p')
@@ -61,14 +61,15 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
     public function findProductsWithFilters($params)
     {
         $count = count($params);
+
         return $this->createQueryBuilder('p')
             ->select('p')
             ->leftJoin('p.productParametersValues', 'ppv')
             ->andWhere('ppv.parameter in (:values)')
             ->groupBy('p')
             ->andHaving('count(ppv) >= :count')
-            ->setParameter('values',  $params, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY )
-            ->setParameter('count',  $count)
+            ->setParameter('values', $params, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY)
+            ->setParameter('count', $count)
             ->getQuery()
             ->getResult()
             ;
@@ -76,9 +77,8 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
 
     public function searchProducts(string $search_str)
     {
-
         return $this->createQueryBuilder('p')
-            ->where("p.title like :search_str")
+            ->where('p.title like :search_str')
             ->orderBy('p.id', 'ASC')
             ->setParameters([':search_str' => '%'.$search_str.'%'])
             ->getQuery()

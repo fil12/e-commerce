@@ -6,9 +6,7 @@ use App\Entity\Product;
 use App\Service\Cart\CartServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 
 class CartController extends AbstractController
 {
@@ -29,7 +27,7 @@ class CartController extends AbstractController
 //        }
 //        die();
         return $this->render('cart/index.html.twig', [
-            'cart' => $cart
+            'cart' => $cart,
         ]);
     }
 
@@ -60,6 +58,7 @@ class CartController extends AbstractController
             'id' => $product->getId(),
             'title' => $product->getTitle(),
         ];
+
         return $this->json($response, Response::HTTP_OK);
     }
 

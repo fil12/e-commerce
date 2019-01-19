@@ -22,8 +22,7 @@ class SearchController extends AbstractController
                           ProductServiceInterface $productService,
                           Request $request)
     {
-
-        try{
+        try {
             $products = $searchService->search($request->request->get('search'));
         } catch (NoContentException $e) {
             echo   $e->getMessage();

@@ -22,7 +22,7 @@ class ProductParametersValueRepository extends ServiceEntityRepository
     public function getProductsByParamId(int $id)
     {
         $productParamValue = $this->createQueryBuilder('ppv')
-            ->select('ppv','pr')
+            ->select('ppv', 'pr')
             ->join('ppv.product', 'pr')
             ->andWhere('ppv.parameter = :val')
             ->setParameter('val', $id)
@@ -31,7 +31,6 @@ class ProductParametersValueRepository extends ServiceEntityRepository
 
         return $productParamValue;
     }
-
 
     // /**
     //  * @return ProductParametersValue[] Returns an array of ProductParametersValue objects

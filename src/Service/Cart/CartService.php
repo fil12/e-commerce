@@ -3,17 +3,15 @@
  * Created by PhpStorm.
  * User: dev-alexf
  * Date: 15.01.19
- * Time: 10:50
+ * Time: 10:50.
  */
 
 namespace App\Service\Cart;
-
 
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-
 
 class CartService implements CartServiceInterface
 {
@@ -39,11 +37,11 @@ class CartService implements CartServiceInterface
         $cart = $session->get('cart', 'products');
 
         if (isset($cart['products'][$product->getId()])) {
-            $cart['quantity']++;
-            $cart['products'][$product->getId()]['qty']++;
+            ++$cart['quantity'];
+            ++$cart['products'][$product->getId()]['qty'];
         } else {
-            $cart = $session->get('cart', array());
-            $cart['products'][$product->getId()]['id']=$product;
+            $cart = $session->get('cart', []);
+            $cart['products'][$product->getId()]['id'] = $product;
             $cart['products'][$product->getId()]['qty'] = isset($cart['products'][$product->getId()]['qty']) ? $cart['products'][$product->getId()]['qty'] + 1 : 1;
             $cart['quantity'] = isset($cart['quantity']) ? $cart['quantity'] + 1 : 1;
         }
@@ -53,7 +51,6 @@ class CartService implements CartServiceInterface
         return $cart;
     }
 
-
     public function getCart()
     {
         $request = $this->requestStack->getCurrentRequest();
@@ -62,7 +59,6 @@ class CartService implements CartServiceInterface
         return $cart ?? self::EMPTY_CART;
     }
 
-
     public function deleteProductFromCart(Product $product)
     {
         $request = $this->requestStack->getCurrentRequest();
@@ -70,12 +66,10 @@ class CartService implements CartServiceInterface
         $cart = $session->get('cart', []);
 
         if (isset($cart['products'][$product->getId()])) {
-
             if ($cart['products'][$product->getId()]['qty'] > 1) {
-                $cart['quantity']--;
-                $cart['products'][$product->getId()]['qty']--;
-
-            } else if ($cart['quantity'] === 1 && count($cart['products']) === 1) {
+                --$cart['quantity'];
+                --$cart['products'][$product->getId()]['qty'];
+            } elseif (1 === $cart['quantity'] && 1 === count($cart['products'])) {
                 $session->remove('cart');
             } else {
                 unset($cart['products'][$product->getId()]);

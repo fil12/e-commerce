@@ -30,11 +30,10 @@ class OrderController extends AbstractController
         $formCustomer = $this->createForm(CustomerType::class);
         $formCustomer->handleRequest($request);
 
-
         if ($formCustomer->isSubmitted() && $formCustomer->isValid()) {
             $this->addFlash('success', 'Your data was successfully saved!');
             $customer = $orderService->createCustomer($formCustomer->getData());
-            $session->set('customer',$customer);
+            $session->set('customer', $customer);
 
             return $this->redirectToRoute('createOrder');
         }
@@ -67,7 +66,8 @@ class OrderController extends AbstractController
     /**
      * @Route("/complete-order", name="completeOrder")
      */
-    public function orderComplete(OrderServiceInterface $orderService, Request $request){
+    public function orderComplete(OrderServiceInterface $orderService, Request $request)
+    {
         return $this->render('order/complete-order.html.twig', [
         ]);
     }

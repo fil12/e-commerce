@@ -8,8 +8,6 @@ use App\Service\Product\ProductServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Cocur\Slugify\Slugify;
-
 
 class DefaultController extends AbstractController
 {
@@ -21,13 +19,12 @@ class DefaultController extends AbstractController
         CategoryServiceInterface $categoryService,
         ParametersServiceInterface $parametersService,
         Request $request
-    )
-    {
-
+    ) {
         $products = $productService->getAllProductsIsPublished();
         if ($request->query->get('filter')) {
             $products = $productService->getProductsByFilters($request->query->get('filter'));
         }
+
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
             'categories' => $categories = $categoryService->getAllMainCategories(),

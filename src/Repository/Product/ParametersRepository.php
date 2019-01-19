@@ -29,7 +29,6 @@ class ParametersRepository extends ServiceEntityRepository implements Parameters
             ;
     }
 
-
     // /**
     //  * @return Parameters[] Returns an array of Parameters objects
     //  */

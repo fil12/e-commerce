@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Category\CategoryRepository")
  */
@@ -49,6 +48,7 @@ class Category
 
     /**
      * Many Categories have Many products.
+     *
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="categories",)
      * @ORM\JoinTable(name="categories_products")
      */
