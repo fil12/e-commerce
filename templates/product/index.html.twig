@@ -10,7 +10,7 @@
        <div class="container">
            <div class="row">
                <div class="col-xs-4 item-photo">
-                   <img style="max-width:100%;" src="{{ product.productImages()[0].name ??  asset('images/default.jpg') }}" />
+                   <img style="max-width:100%;" src="{{ product.productImages().first.name ??  asset('images/default.jpg') }}" />
                </div>
                <div class="col-xs-5" style="border:0px solid gray">
                    <!-- Datos del vendedor y titulo del producto -->
@@ -18,7 +18,7 @@
 
                    <!-- Precios -->
                    <h6 class="title-price"><small>Price</small></h6>
-                   <h3 style="margin-top:0px;">U$S {{ product.price }}</h3>
+                   <h3 style="margin-top:0px;">$US {{ product.price }}</h3>
 
 
                    <!-- Add to cart -->

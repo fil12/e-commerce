@@ -56,7 +56,7 @@ class CartService implements CartServiceInterface
         $request = $this->requestStack->getCurrentRequest();
         $cart = $request->getSession()->get('cart');
 
-        return $cart ?? self::EMPTY_CART;
+        return $cart ?? null;
     }
 
     public function deleteProductFromCart(Product $product)

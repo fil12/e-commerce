@@ -10,7 +10,7 @@ namespace App\Repository\Product;
 
 interface ProductRepositoryInterface
 {
-    public function findAllIsPublished();
+    public function findAllIsPublished(int $limit);
 
     public function findAllIsNew();
 

@@ -38,24 +38,24 @@ class CategoryController extends AbstractController
         ProductServiceInterface $productService,
         ParametersServiceInterface $parametersService,
         Request $request
-        ) {
+        )
+    {
+
         try {
+
             $categories = $categoryService->getAllMainCategories();
-        } catch (NotFoundEntityException $e) {
-            throw $this->createNotFoundException($e->getMessage());
-        }
 
-        try {
             $category = $categoryService->getCategoryBySlug($slug);
+
+            $products = $productService->getCategoryProducts($category);
+
         } catch (NotFoundEntityException $e) {
             throw $this->createNotFoundException($e->getMessage());
         }
 
-        try {
-            $products = $productService->getCategoryProducts($category);
-        } catch (NotFoundEntityException $e) {
-            throw $this->createNotFoundException($e->getMessage());
-        }
+
+
+
 
         if ($request->query->get('filter')) {
             $products = $productService->getProductsByFilters($request->query->get('filter'));

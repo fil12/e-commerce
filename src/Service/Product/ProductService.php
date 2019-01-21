@@ -15,6 +15,8 @@ use App\Repository\Product\ProductRepositoryInterface;
 
 class ProductService implements ProductServiceInterface
 {
+    public const PRODUCTS_LIMIT = 20;
+
     protected $productRepository;
 
     protected $categoryRepository;
@@ -28,14 +30,15 @@ class ProductService implements ProductServiceInterface
     public function __construct(
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository
-    ) {
+    )
+    {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function getAllProductsIsPublished()
+    public function getAllProductsIsPublished(int $limit = self::PRODUCTS_LIMIT)
     {
-        return $this->productRepository->findAllIsPublished();
+        return $this->productRepository->findAllIsPublished($limit);
     }
 
     public function getCategoryProducts(Category $category)
@@ -54,10 +57,8 @@ class ProductService implements ProductServiceInterface
 
     public function getProductsByFilters(array $options)
     {
-        $ids = [];
-        foreach ($options as $id => $optionValues) {
-            $ids[] = $id;
-        }
+        $ids = \array_keys($options);
+
         $products = $this->productRepository->findProductsWithFilters($ids);
 
         return $products;

@@ -15,10 +15,11 @@
 
             <div class="row col-lg-10 wrap">
 
+                {% if products is not null %}
                     {% for product in products %}
                         {% include 'layouts/product.html.twig'%}
                     {% endfor %}
-
+                {% endif %}
 
                 {#<!-- START THE FEATURETTES -->#}
 

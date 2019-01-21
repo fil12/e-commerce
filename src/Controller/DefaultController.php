@@ -20,7 +20,8 @@ class DefaultController extends AbstractController
         ParametersServiceInterface $parametersService,
         Request $request
     ) {
-        $products = $productService->getAllProductsIsPublished();
+        $products = $productService->getAllProductsIsPublished(20);
+
         if ($request->query->get('filter')) {
             $products = $productService->getProductsByFilters($request->query->get('filter'));
         }
@@ -28,7 +29,7 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
             'categories' => $categories = $categoryService->getAllMainCategories(),
-            'products' => $products ?? 'Продукты не найдены',
+            'products' => $products,
             'filters' => $parametersService->getAllProductsParameters(),
             'new_produts' => $productService->getAllNewProducts(),
         ]);

@@ -12,7 +12,7 @@ use App\Entity\Category;
 
 interface ProductServiceInterface
 {
-    public function getAllProductsIsPublished();
+    public function getAllProductsIsPublished(int $limit);
 
     public function getCategoryProducts(Category $category);
 

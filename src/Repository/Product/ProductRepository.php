@@ -22,11 +22,11 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
     /**
      * @return Product[] Returns an array of Product objects is published
      */
-    public function findAllIsPublished()
+    public function findAllIsPublished(int $limit)
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.is_published = true')
-            ->setMaxResults(20)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
             ;

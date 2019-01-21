@@ -31,9 +31,10 @@ class OrderController extends AbstractController
         $formCustomer->handleRequest($request);
 
         if ($formCustomer->isSubmitted() && $formCustomer->isValid()) {
-            $this->addFlash('success', 'Your data was successfully saved!');
+
             $customer = $orderService->createCustomer($formCustomer->getData());
             $session->set('customer', $customer);
+            $this->addFlash('success', 'Your data was successfully saved!');
 
             return $this->redirectToRoute('createOrder');
         }

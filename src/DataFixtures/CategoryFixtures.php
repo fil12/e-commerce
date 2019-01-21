@@ -22,31 +22,31 @@ class CategoryFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-//        $faker = \Faker\Factory::create();
-//
-//        $categoryPar = $manager->getRepository(Category::class)->find(6);
-//
-//            $category = new Category();
-//
-//            $title = $faker->word;
-//            $slugify = new Slugify();
-//
-//            $category
-//                ->setTitle($title)
-//                ->setSlug($slugify->slugify($title))
-//                ->setIsPublished(true)
-//                ->setDescription($faker->text($faker->boolean ? 300 : 400))
-//                ->setImage($faker->image())
-//                ->setParent($categoryPar)
-//            ;
-//
-//            $manager->persist($category);
-//
-//
-//
-//
-//        $manager->flush();
-//
-//        $this->addReference(self::CATEGORY, $category);
+        $faker = \Faker\Factory::create();
+
+        $categoryPar = $manager->getRepository(Category::class)->find(6);
+
+            $category = new Category();
+
+            $title = $faker->word;
+            $slugify = new Slugify();
+
+            $category
+                ->setTitle($title)
+                ->setSlug($slugify->slugify($title))
+                ->setIsPublished(true)
+                ->setDescription($faker->text($faker->boolean ? 300 : 400))
+                ->setImage($faker->image())
+                ->setParent($categoryPar)
+            ;
+
+            $manager->persist($category);
+
+
+
+
+        $manager->flush();
+
+        $this->addReference(self::CATEGORY, $category);
     }
 }

@@ -17,15 +17,6 @@ class CartController extends AbstractController
     {
         $cart = $cartService->getCart();
 
-//        foreach ($cart as $k=>$cartItems){
-//            if($k !== 'quantity'){
-//                foreach($cartItems as $item){
-//                    dump($item['id']);
-//
-//                }
-//            }
-//        }
-//        die();
         return $this->render('cart/index.html.twig', [
             'cart' => $cart,
         ]);
@@ -67,7 +58,7 @@ class CartController extends AbstractController
      */
     public function xhrCleanCart(CartServiceInterface $cartService)
     {
-        $cart = $cartService->cleanCart();
+        $cartService->cleanCart();
 
         return $this->json('cleaned', Response::HTTP_OK);
     }

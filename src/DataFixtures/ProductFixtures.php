@@ -20,25 +20,25 @@ class ProductFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-//        $faker = \Faker\Factory::create();
-//
-//        for ($i = 0; $i < 25; $i++) {
-//            $product = new Product();
-//
-//            $category = $this->getReference(CategoryFixtures::CATEGORY);
-//
-//            $product
-//                ->setTitle($faker->sentence)
-//                ->setPrice(mt_rand(10, 100))
-//                ->setSku(mt_rand(1, 40))
-//                ->setDescription($faker->text($faker->boolean ? 300 : 400))
-//                ->setIsPublished(true)
-//                ->addCategory($category)
-//            ;
-//
-//            $manager->persist($product);
-//        }
-//
-//        $manager->flush();
+        $faker = \Faker\Factory::create();
+
+        for ($i = 0; $i < 25; $i++) {
+            $product = new Product();
+
+            $category = $this->getReference(CategoryFixtures::CATEGORY);
+
+            $product
+                ->setTitle($faker->sentence)
+                ->setPrice(mt_rand(10, 100))
+                ->setSku(mt_rand(1, 40))
+                ->setDescription($faker->text($faker->boolean ? 300 : 400))
+                ->setIsPublished(true)
+                ->addCategory($category)
+            ;
+
+            $manager->persist($product);
+        }
+
+        $manager->flush();
     }
 }
